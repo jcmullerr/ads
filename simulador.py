@@ -1,4 +1,14 @@
 import pandas as pd
+import time as ts
+import os
+import numpy as np
+
+#make this example reproducible
+#np.random.seed(1)
+
+#generate array of 8 values that follow normal distribution with mean=5 and sd=2
+# a = np.random.normal(loc=5, scale=1, size=8)
+# print(a[0])
 
 data = pd.read_csv('./tc.txt')
 data['ts'] = pd.read_csv('./ts.txt')
@@ -42,3 +52,9 @@ while (True):
                 tempo_buscar_proximo_item = tempo+item[0]
         
     tempo = tempo + 1
+
+    os.system('cls')
+    print("Tempo",tempo)
+    print("Em espera:",len(atividades))
+    print("Ultimo tempo iniciado:",tempo_inicio_trabalho)
+    ts.sleep(0.1)
