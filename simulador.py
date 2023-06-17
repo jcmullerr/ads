@@ -3,12 +3,41 @@ import time as ts
 import os
 import numpy as np
 
-#make this example reproducible
-#np.random.seed(1)
 
-#generate array of 8 values that follow normal distribution with mean=5 and sd=2
-# a = np.random.normal(loc=5, scale=1, size=8)
-# print(a[0])
+#         tc          ts
+# count  200.000000  200.000000
+# mean     4.640000   11.105000
+# std      1.990025    2.018501
+# min      0.000000    8.000000
+# 25%      3.000000    9.000000
+# 50%      5.000000   11.000000
+# 75%      6.000000   13.000000
+# max     10.000000   14.000000
+
+# altera a semente do random
+# np.random.seed(1)
+
+qt_testes = 5
+size = 10 # quantidade de valores gerados padrão=200.
+mean = 11.105000 # media
+std = 2.018501 # desvio padrao
+min = 8
+max = 14
+
+
+for qt in range(qt_testes):
+
+    # gera uma lista de dist. normal com [size] valores a partir de [mean] com desvio padrão de [std].
+    tc = np.random.normal(loc=mean, scale=std, size=size)
+    tc = [round(x) for x in tc]
+
+    # gera uma lista de dist. linear com [size] valores de [min] ate [max].
+    ts = np.random.uniform(low=min, high=max, size=size)
+    ts = [round(x) for x in ts]
+
+    cenario = [[tc[x],ts[x]] for x in range(size)]
+    print(f"cenario {qt+1}: {cenario}")
+
 
 data = pd.read_csv('./tc.txt')
 data['ts'] = pd.read_csv('./ts.txt')
@@ -23,6 +52,7 @@ tempo_buscar_proximo_item = int(item[0]) + tempo
 tempo_inicio_trabalho = 0
 atividades = []
 item = None
+
 
 while (True):
         
@@ -57,4 +87,4 @@ while (True):
     print("Tempo",tempo)
     print("Em espera:",len(atividades))
     print("Ultimo tempo iniciado:",tempo_inicio_trabalho)
-    ts.sleep(0.1)
+    ts.sleep(0.05)
