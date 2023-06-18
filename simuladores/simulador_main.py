@@ -8,10 +8,10 @@ from simulador_cenario_dois_workers_e_filas import cenario_multiplos_workers as 
 
 qt_testes = 1
 size = 200 # quantidade de valores gerados padrão=200.
-mean = 11.105000 # media
-std = 2.018501 # desvio padrao
-min = 0
-max = 10
+mean = 4.640000 # media
+std = 1.990025 # desvio padrao
+min = 8
+max = 14
 
 for qt in range(qt_testes):
 
@@ -40,8 +40,9 @@ data = data.values.tolist()
 
 print(data)
 
-multiplosWorkers = multiplos_workers(data,num_instancias=200,numero_de_workers=2)
+# multiplosWorkers = multiplos_workers(cenario,num_instancias=200,numero_de_workers=10)
 
 # cenario_multiplos_workers(data,2)
-# cenario_fila_unica(data)
-# cenario_dois_workers_e_filas(data)
+# fila_unica(cenario)
+
+dois_workers_e_filas(cenario)

@@ -64,7 +64,7 @@ def cenario_multiplos_workers(data,numero_de_workers,num_instancias=200):
             if(tem_worker_disponivel()):
                 tempos = data[item_index]
                 index_worker_disponivel = obter_index_worker_disponivel()
-                worker = (False,item_index,tempos,tempo,tempo,tempo+tempos[1])
+                worker = (False,item_index,tempos,tempo,tempo+tempos[1])
                 tempos_de_espera.append((worker[1],tempo-worker[3]))
                 workers[index_worker_disponivel] = worker
 
