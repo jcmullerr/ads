@@ -1,4 +1,4 @@
-def cenario_multiplos_workers(data):
+def cenario_multiplos_workers(data,num_instancias=200):
     tempo = 0
     item_index = 0
     item = data[item_index]
@@ -42,17 +42,18 @@ def cenario_multiplos_workers(data):
                 worker = (False,item_index,tempos,tempo,tempo)
                 tempos_de_espera.append((worker[1],tempo-worker[3]))
                 item_index = item_index + 1
-                tempo_buscar_proximo_item = tempo + (data[item_index][0] if data[item_index][0] > 0 else 1)
-                workers[index_worker_disponivel] = worker
+                if(item_index < num_instancias and not filas_estao_vazias()):
+                    tempo_buscar_proximo_item = tempo + (data[item_index][0] if data[item_index][0] > 0 else 1)
+                    workers[index_worker_disponivel] = worker
             else:
-                if(item_index < 200):
+                if(item_index < num_instancias):
                     tempos = data[item_index]
                     if(tempos[0] > 18):
                         atividades[0].append((item_index,tempos,tempo))
                     else:
                         atividades[1].append((item_index,tempos,tempo))
                     item_index = item_index + 1
-                    if(item_index < 200):
+                    if(item_index < num_instancias):
                         tempo_buscar_proximo_item = tempo + (data[item_index][0] if data[item_index][0] > 0 else 1) 
     
         for idx,worker in enumerate(workers):
@@ -60,7 +61,7 @@ def cenario_multiplos_workers(data):
                 continue
 
             tempos = worker[2]
-            if(tempos[1] + worker[4] == tempo):
+            if(tempos[1] + worker[4] <= tempo):
                 if(not filas_estao_vazias()):
                     index_fila = obter_fila_preferencial(idx)
                     if(len(atividades[index_fila]) == 0):
@@ -69,20 +70,20 @@ def cenario_multiplos_workers(data):
                     worker = (False, item[0], item[1],item[2],tempo)
                     tempos_de_espera.append((item[0],tempo-item[2]))
                     workers[idx] = worker
-                elif(filas_estao_vazias() and item_index > 199):
+                
+                elif(filas_estao_vazias() and item_index > num_instancias):
                     return
-                elif (item_index < 200):
+                elif (item_index < num_instancias):
                     tempos = data[item_index]
                     worker = (False,item_index,tempos,tempo,tempo)
                     tempos_de_espera.append((worker[1],tempo-worker[3]))
                     item_index = item_index + 1
                     tempo_buscar_proximo_item = tempo+tempos[0]
         
-        tempo = tempo + 1
-
-    # os.system('clear')
+        # os.system('clear')
         print("Tempo",tempo)
         print("Em espera:",len(atividades))
         print("workers:",workers)
         print("______________________")
-    # ts.sleep()
+        tempo = tempo + 1
+        # ts.sleep()

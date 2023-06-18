@@ -1,4 +1,4 @@
-def cenario_fila_unica(data):
+def cenario_fila_unica(data,num_instancias=200):
     tempo = 0
     item_index = 0
     item = data[item_index]
@@ -18,11 +18,11 @@ def cenario_fila_unica(data):
                 tempo_inicio_trabalho = tempo
                 tempo_buscar_proximo_item = tempo + (data[item_index][0] if data[item_index][0] > 0 else 1)
             else:
-                if(item_index < 200):
+                if(item_index < num_instancias):
                     tempos = data[item_index]
                     atividades.append((item_index,tempos,tempo))
                     item_index = item_index + 1
-                    if(item_index < 200):
+                    if(item_index < num_instancias):
                         tempo_buscar_proximo_item = tempo + (data[item_index][0] if data[item_index][0] > 0 else 1)
     
         if(item != None):
@@ -32,16 +32,16 @@ def cenario_fila_unica(data):
                     item = atividades.pop(0)
                     tempo_inicio_trabalho =  tempo
                     tempos_de_espera.append((item[0],tempo-item[2]))
-                elif(len(atividades) == 0 and item_index > 199):
+                elif(len(atividades) == 0 and item_index >= num_instancias):
                     break
-                else:
+                elif item_index < num_instancias:
                     item = (item_index,data[item_index],tempo)
                     tempo_inicio_trabalho = tempo
                     tempos_de_espera.append((item[0],tempo-item[2]))
                     item_index = item_index + 1
                     tempo_buscar_proximo_item = tempo+tempos[0]
         
-        tempo = tempo + 1
+        # tempo = tempo + 1
 
     # os.system('clear')
         print("Tempo",tempo)
@@ -53,3 +53,6 @@ def cenario_fila_unica(data):
             print("Ultimo tempo iniciado: 0")
         print("______________________")
     # ts.sleep()
+        tempo = tempo + 1
+    
+    print(tempos_de_espera)
