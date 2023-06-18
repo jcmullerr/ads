@@ -28,33 +28,40 @@ for qt in range(qt_testes):
     print(f"TEMPOS ALEATORIOS:\n{cenario}")
 
     filaUnica = fila_unica(cenario,num_instancias=size)
-    print(f"\n\nTEMPO MEDIO DE ESPERA FILA UNICA: \n {sum(j for i, j in filaUnica)/size}")
+    print(f"\n\nTEMPO MEDIO DE ESPERA FILA UNICA: \n {sum(j for i, j in filaUnica[0])/size}")
+    print(f"\nTAMANHO MAXIMO FILA UNICA: \n {filaUnica[1]}")
 
     doisWorkersFilas = dois_workers_e_filas(cenario,num_instancias=size)
-    print(f"\n\nTEMPO MEDIO DE ESPERA FILA DUPLA COM 2 WORKERS: \n {sum(j for i, j in doisWorkersFilas)/size}")
+    print(f"\n\nTEMPO MEDIO DE ESPERA FILA DUPLA COM 2 WORKERS: \n {sum(j for i, j in doisWorkersFilas[0])/size}")
+    print(f"\nTAMANHO MAXIMO FILA DUPLA COM 2 WORKERS: \n {doisWorkersFilas[1]}")
 
     multiplosWorkers = multiplos_workers(cenario,num_instancias=size,numero_de_workers=2)
-    print(f"\n\nTEMPO MEDIO DE ESPERA FILA UNICA E MULTIPLOS WORKERS: \n {sum(j for i, j in multiplosWorkers)/size}")
-    
+    print(f"\n\nTEMPO MEDIO DE ESPERA FILA UNICA E MULTIPLOS WORKERS: \n {sum(j for i, j in multiplosWorkers[0])/size}")
+    print(f"\nTAMANHO MAXIMO  FILA UNICA E MULTIPLOS WORKERS: \n {multiplosWorkers[1]}")
+
     print("\n")
 
-
-    
-    
-
-exit()
-data = pd.read_csv('./tc.txt')
-data['ts'] = pd.read_csv('./ts.txt')
+data = pd.read_csv('../tc.txt')
+data['ts'] = pd.read_csv('../ts.txt')
 data.rename(columns={'x': 'tc', 'ts': 'ts'}, inplace=True)
 data = data[data['ts'] < 15].head(200)
 data = data.values.tolist()
 
-
 print(data)
 
-# multiplosWorkers = multiplos_workers(cenario,num_instancias=200,numero_de_workers=10)
+print(f"==================== TESTE DADOS REAIS {qt+1} ====================")
+print(f"TESTE DADOS REAIS:\n{data}")
 
-# cenario_multiplos_workers(data,2)
-# fila_unica(cenario)
+filaUnica = fila_unica(data,num_instancias=size)
+print(f"\n\nTEMPO MEDIO DE ESPERA FILA UNICA: \n {sum(j for i, j in filaUnica[0])/size}")
+print(f"\nTAMANHO MAXIMO FILA UNICA: \n {filaUnica[1]}")
 
-#dois_workers_e_filas(cenario)
+doisWorkersFilas = dois_workers_e_filas(data,num_instancias=size)
+print(f"\n\nTEMPO MEDIO DE ESPERA FILA DUPLA COM 2 WORKERS: \n {sum(j for i, j in doisWorkersFilas[0])/size}")
+print(f"\nTAMANHO MAXIMO FILA DUPLA COM 2 WORKERS: \n {doisWorkersFilas[1]}")
+
+multiplosWorkers = multiplos_workers(data,num_instancias=size,numero_de_workers=2)
+print(f"\n\nTEMPO MEDIO DE ESPERA FILA UNICA E MULTIPLOS WORKERS: \n {sum(j for i, j in multiplosWorkers[0])/size}")
+print(f"\nTAMANHO MAXIMO  FILA UNICA E MULTIPLOS WORKERS: \n {multiplosWorkers[1]}")
+
+print("\n")

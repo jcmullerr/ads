@@ -7,8 +7,11 @@ def cenario_fila_unica(data,num_instancias=200):
     atividades = []
     tempos_de_espera = []
     item = None
+    tamanho_maximo_fila = 0
 
     while (True):
+        tamanho_maximo_fila =  (len(atividades) if len(atividades) > tamanho_maximo_fila else tamanho_maximo_fila)
+
         if(tempo_buscar_proximo_item == tempo):
             if(item == None):
                 tempos = data[item_index]
@@ -41,18 +44,6 @@ def cenario_fila_unica(data,num_instancias=200):
                     item_index = item_index + 1
                     tempo_buscar_proximo_item = tempo+tempos[0]
         
-        # tempo = tempo + 1
-
-        # os.system('clear')
-        # print("Tempo",tempo)
-        # print("Em espera:",len(atividades))
-        # if(item != None):
-        #     print("Ultimo tempo iniciado:",tempo_inicio_trabalho)
-        #     print(item)
-        # else:
-        #     print("Ultimo tempo iniciado: 0")
-        # print("______________________")
-        # ts.sleep()
         tempo = tempo + 1
     
-    return tempos_de_espera
+    return (tempos_de_espera, tamanho_maximo_fila)

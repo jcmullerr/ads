@@ -6,6 +6,7 @@ def cenario_multiplos_workers(data,numero_de_workers,num_instancias=200):
     atividades = []
     tempos_de_espera = []
     workers = []
+    tamanho_maximo_fila = 0
     for i in range(numero_de_workers):
         workers.append((True,None,None,None,None))
     
@@ -34,11 +35,13 @@ def cenario_multiplos_workers(data,numero_de_workers,num_instancias=200):
             
 
     while (True):
+        tamanho_maximo_fila =  (len(atividades) if len(atividades) > tamanho_maximo_fila else tamanho_maximo_fila)
+        
         for idx,worker in enumerate(workers):
             
             if worker[4] != tempo:
                 if(len(atividades) == 0 and item_index >= num_instancias and todos_workers_disponiveis()):
-                    return tempos_de_espera
+                    return (tempos_de_espera, tamanho_maximo_fila)
                 
                 continue
 
@@ -81,10 +84,4 @@ def cenario_multiplos_workers(data,numero_de_workers,num_instancias=200):
                         tempo_buscar_proximo_item = tempo + (data[item_index][0] if data[item_index][0] > 0 else 1) 
     
         
-        # os.system('clear')
-        # print("Tempo",tempo)
-        # print("Em espera:",len(atividades))
-        # print("workers:",workers)
-        # print("______________________")
-        # ts.sleep()
         tempo = tempo + 1

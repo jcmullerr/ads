@@ -6,9 +6,13 @@ def cenario_multiplos_workers(data,num_instancias=200,tempo_corte = 12):
     atividades = [[],[]]
     tempos_de_espera = []
     workers = []
+    tamanho_maximo_fila = 0
     for i in range(2):
         workers.append((True,None,None,None,None))
     
+    def numero_em_fila():
+        return len(atividades[0]) + len(atividades[1])
+
     def tem_worker_disponivel():
         for i in range(2):
             worker = workers[i]
@@ -43,11 +47,14 @@ def cenario_multiplos_workers(data,num_instancias=200,tempo_corte = 12):
         return True
     
     while (True):
+        numero_fila = numero_em_fila()
+        tamanho_maximo_fila =  (numero_fila if numero_fila > tamanho_maximo_fila else tamanho_maximo_fila)
+
         for idx,worker in enumerate(workers):
 
             if worker[4] != tempo:
                 if(filas_estao_vazias() and item_index >= num_instancias and todos_workers_disponiveis()):
-                    return tempos_de_espera
+                    return (tempos_de_espera, tamanho_maximo_fila)
                 
                 continue
 
