@@ -43,16 +43,16 @@ def cenario_fila_unica(data,num_instancias=200):
         
         # tempo = tempo + 1
 
-    # os.system('clear')
-        print("Tempo",tempo)
-        print("Em espera:",len(atividades))
-        if(item != None):
-            print("Ultimo tempo iniciado:",tempo_inicio_trabalho)
-            print(item)
-        else:
-            print("Ultimo tempo iniciado: 0")
-        print("______________________")
-    # ts.sleep()
+        # os.system('clear')
+        # print("Tempo",tempo)
+        # print("Em espera:",len(atividades))
+        # if(item != None):
+        #     print("Ultimo tempo iniciado:",tempo_inicio_trabalho)
+        #     print(item)
+        # else:
+        #     print("Ultimo tempo iniciado: 0")
+        # print("______________________")
+        # ts.sleep()
         tempo = tempo + 1
     
-    print(tempos_de_espera)
+    return tempos_de_espera

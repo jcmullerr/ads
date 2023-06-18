@@ -6,7 +6,7 @@ from simulador_cenario_multiplos_workers import cenario_multiplos_workers as mul
 from simulador_cenario_dois_workers_e_filas import cenario_multiplos_workers as dois_workers_e_filas
 
 
-qt_testes = 1
+qt_testes = 5
 size = 200 # quantidade de valores gerados padrão=200.
 mean = 4.640000 # media
 std = 1.990025 # desvio padrao
@@ -24,13 +24,25 @@ for qt in range(qt_testes):
     ts = [round(x) for x in ts]
 
     cenario = [[tc[x],ts[x]] for x in range(size)]
-    #print(f"cenario {qt+1}: {cenario}")
-    # filaUnica = fila_unica(cenario,num_instancias=size)
-    # doisWorkersFilas = dois_workers_e_filas(cenario,num_instancias=size)
-    # multiplosWorkers = multiplos_workers(cenario,num_instancias=size,numero_de_workers=2)
+    print(f"==================== TESTE ALEATORIOS {qt+1} ====================")
+    print(f"TEMPOS ALEATORIOS:\n{cenario}")
+
+    filaUnica = fila_unica(cenario,num_instancias=size)
+    print(f"\n\nFILA UNICA: \n {filaUnica}")
+
+    doisWorkersFilas = dois_workers_e_filas(cenario,num_instancias=size)
+    print(f"\n\nFILA UNICA COM 2 WORKERS: \n {doisWorkersFilas}")
+
+    multiplosWorkers = multiplos_workers(cenario,num_instancias=size,numero_de_workers=2)
+    print(f"\n\nMULTIPLOS WORKERS: \n {multiplosWorkers}")
+    
+    print("\n")
+
+
+    
     
 
-
+exit()
 data = pd.read_csv('./tc.txt')
 data['ts'] = pd.read_csv('./ts.txt')
 data.rename(columns={'x': 'tc', 'ts': 'ts'}, inplace=True)
@@ -45,4 +57,4 @@ print(data)
 # cenario_multiplos_workers(data,2)
 # fila_unica(cenario)
 
-dois_workers_e_filas(cenario)
+#dois_workers_e_filas(cenario)

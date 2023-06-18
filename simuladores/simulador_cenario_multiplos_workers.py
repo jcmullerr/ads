@@ -38,7 +38,7 @@ def cenario_multiplos_workers(data,numero_de_workers,num_instancias=200):
             
             if worker[4] != tempo:
                 if(len(atividades) == 0 and item_index >= num_instancias and todos_workers_disponiveis()):
-                    return
+                    return tempos_de_espera
                 
                 continue
 
@@ -82,9 +82,9 @@ def cenario_multiplos_workers(data,numero_de_workers,num_instancias=200):
     
         
         # os.system('clear')
-        print("Tempo",tempo)
-        print("Em espera:",len(atividades))
-        print("workers:",workers)
-        print("______________________")
+        # print("Tempo",tempo)
+        # print("Em espera:",len(atividades))
+        # print("workers:",workers)
+        # print("______________________")
         # ts.sleep()
         tempo = tempo + 1
