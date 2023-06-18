@@ -28,13 +28,13 @@ for qt in range(qt_testes):
     print(f"TEMPOS ALEATORIOS:\n{cenario}")
 
     filaUnica = fila_unica(cenario,num_instancias=size)
-    print(f"\n\nFILA UNICA: \n {filaUnica}")
+    print(f"\n\nTEMPO MEDIO DE ESPERA FILA UNICA: \n {sum(j for i, j in filaUnica)/size}")
 
     doisWorkersFilas = dois_workers_e_filas(cenario,num_instancias=size)
-    print(f"\n\nFILA UNICA COM 2 WORKERS: \n {doisWorkersFilas}")
+    print(f"\n\nTEMPO MEDIO DE ESPERA FILA DUPLA COM 2 WORKERS: \n {sum(j for i, j in doisWorkersFilas)/size}")
 
     multiplosWorkers = multiplos_workers(cenario,num_instancias=size,numero_de_workers=2)
-    print(f"\n\nMULTIPLOS WORKERS: \n {multiplosWorkers}")
+    print(f"\n\nTEMPO MEDIO DE ESPERA FILA UNICA E MULTIPLOS WORKERS: \n {sum(j for i, j in multiplosWorkers)/size}")
     
     print("\n")
 
