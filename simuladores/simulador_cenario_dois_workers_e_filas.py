@@ -1,3 +1,4 @@
+from collections import Counter
 def cenario_multiplos_workers(data,num_instancias=200,tempo_corte = 12):
     tempo = 0
     item_index = 0
@@ -54,7 +55,7 @@ def cenario_multiplos_workers(data,num_instancias=200,tempo_corte = 12):
 
             if worker[4] != tempo:
                 if(filas_estao_vazias() and item_index >= num_instancias and todos_workers_disponiveis()):
-                    return (tempos_de_espera, tamanho_maximo_fila)
+                    return (tempos_de_espera, tamanho_maximo_fila,dict(Counter([y for x,y in tempos_de_espera])))
                 
                 continue
 

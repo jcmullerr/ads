@@ -1,3 +1,4 @@
+from collections import Counter
 def cenario_fila_unica(data,num_instancias=200):
     tempo = 0
     item_index = 0
@@ -46,4 +47,4 @@ def cenario_fila_unica(data,num_instancias=200):
         
         tempo = tempo + 1
     
-    return (tempos_de_espera, tamanho_maximo_fila)
+    return (tempos_de_espera, tamanho_maximo_fila,dict(Counter([y for x,y in tempos_de_espera])))
